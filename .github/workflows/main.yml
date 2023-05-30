@@ -75,7 +75,7 @@ jobs:
 
       - name: Commit minifest files
         run: |
-          cd K8s-Resource
+          cd config-repo
           git config --global user.email "sce06147@gmail.com"
           git config --global user.name "KoHyunsu"
           git commit -am "Update image tag"
