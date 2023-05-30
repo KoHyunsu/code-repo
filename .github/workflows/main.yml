@@ -16,6 +16,8 @@ jobs:
       id-token: write
 
     steps:
+      - name: --------------- Code Repo ---------------
+      
       - name: Code Repo 불러오기
         uses: actions/checkout@v3
 
@@ -56,8 +58,7 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: false
       
-      - name: Kustomize 준비
-        uses: imranismail/setup-kustomize@v2.0.0
+      - name: --------------- Config Repo ---------------
 
       - name: Config Repo 불러오기
         uses: actions/checkout@v3
@@ -66,6 +67,9 @@ jobs:
           ref: main  
           token: ${{ secrets.ACTION_TOKEN }}
           path: config-repo
+      
+      - name: Kustomize 준비
+        uses: imranismail/setup-kustomize@v2.0.0
 
       - name: Config Repo 이미지 값 업데이트 (Kustomize)
         run: |
