@@ -16,6 +16,9 @@ jobs:
       id-token: write
 
     steps:
+      - name: --------------- Code Repo ---------------
+        run: echo "Code Repo"
+      
       - name: Code Repo 불러오기
         uses: actions/checkout@v3
 
@@ -56,8 +59,8 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: false
       
-      - name: Kustomize 준비
-        uses: imranismail/setup-kustomize@v2.0.0
+      - name: --------------- Config Repo ---------------
+        run: echo "[Config Repo]"
 
       - name: Config Repo 불러오기
         uses: actions/checkout@v3
@@ -66,13 +69,15 @@ jobs:
           ref: main  
           token: ${{ secrets.ACTION_TOKEN }}
           path: config-repo
+      
+      - name: Kustomize 준비
+        uses: imranismail/setup-kustomize@v2.0.0
 
       - name: Config Repo 이미지 값 업데이트 (Kustomize)
         run: |
           cd config-repo/overlays/prod/
           kustomize edit set image ${{ env.dockerimage_name }}:${{ env.dockerimage_tag }}
           cat kustomization.yaml
-
       - name: Config Repo 변경사항 푸시
         run: |
           cd config-repo
@@ -80,3 +85,6 @@ jobs:
           git config --global user.name "KoHyunsu"
           git commit -am "Update image tag"
           git push -u origin main
+      
+      - name: --------------- Clean Up ---------------
+        run: echo "Clean Up"
