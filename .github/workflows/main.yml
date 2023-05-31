@@ -86,3 +86,6 @@ jobs:
           git config --global user.name "KoHyunsu"
           git commit -am "Update image tag"
           git push -u origin main
+      
+      - name: --------------- Clean Up ---------------
+        run: echo "Clean Up"
